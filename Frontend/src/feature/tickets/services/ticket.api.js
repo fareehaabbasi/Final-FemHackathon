@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "http://localhost:3000/api/tickets";
+const API = "https://final-fem-hackathon.vercel.app/api/tickets";
 
 export const createTicket = async (data) => {
     const response = await axios.post(
