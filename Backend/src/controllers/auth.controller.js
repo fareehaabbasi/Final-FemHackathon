@@ -10,7 +10,7 @@ const tokenBlacklistModel = require("../models/blacklist.model.js");
  * @access Public
  */
 async function userRegister(req, res) {
-    const { username, email, password } = req.body;
+    const { username, email, password, role } = req.body;
 
     if(!username || !email || !password) {
         return res.status(400).
@@ -35,11 +35,12 @@ async function userRegister(req, res) {
     const user = await authModel.create({
         username, 
         email,
-        password: hashesPassword
+        password: hashesPassword,
+        role
     })
 
     const token = jwt.sign(
-        {id: user._id, username: user.username},
+        {id: user._id, username: user.username, role:user.role},
         process.env.JWT_SECRET,
         {expiresIn: "1d"}
     )
@@ -55,7 +56,8 @@ async function userRegister(req, res) {
         user:{
             id: user._id,
             username: user.username,
-            email: user.email
+            email: user.email,
+            role:user.role
         }
     })
 }
@@ -85,7 +87,7 @@ async function userLogin(req, res) {
     }
 
         const token = jwt.sign(
-        {id: user._id, username: user.username},
+        {id: user._id, username: user.username, role:user.role},
         process.env.JWT_SECRET,
         {expiresIn: "1d"}
     )
@@ -102,6 +104,7 @@ async function userLogin(req, res) {
             id: user._id,
             username: user.username,
             email: user.email,
+            role:user.role
         }
     })
 
@@ -140,6 +143,7 @@ async function userGetMe(req, res) {
             id: user._id,
             username: user.username,
             email: user.email,
+            role:user.role
         }
     })
 }

@@ -1,6 +1,7 @@
 const express = require('express');
 // required all the routes here
 const authRoutes = require("./routes/auth.routes")
+const ticketRoutes = require("./routes/ticket.routes")
 const cookieParser = require("cookie-parser")
 const cors = require('cors')
 
@@ -14,6 +15,7 @@ app.use(cors({
 app.use(express.json());
 // using all the routes here
 app.use("/api/auth", authRoutes)
+app.use("/api/tickets", ticketRoutes)
 
 
 module.exports = app;

@@ -1,23 +1,52 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router'
-import { useAuth  } from '../hook/useAuth.js'
-import { Navigate } from 'react-router'
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router";
+import { useAuth } from "../hook/useAuth.js";
 
 const Login = () => {
     const { handleLogin, loading } = useAuth();
-    const navigate = useNavigate()
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [showPassword, setShowPassword] = useState(false)
+    const navigate = useNavigate();
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [error, setError] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await handleLogin({email, password})
-        navigate('/')
-    }
 
-    if(loading) {
-        return (<main><h1>Loading...........</h1></main>)
+        setError("");
+
+        if (!email.trim() || !password.trim()) {
+            setError("Please enter your email and password.");
+            return;
+        }
+
+        try {
+            const user = await handleLogin({
+                email: email.trim(),
+                password,
+            });
+
+            if (user?.role === "agent") {
+                navigate("/agent");
+            } else {
+                navigate("/");
+            }
+
+        } catch (error) {
+            setError(
+                error.response?.data?.message ||
+                "Login failed. Please try again."
+            );
+        }
+    };
+
+    if (loading) {
+        return (
+            <main className="min-h-screen flex items-center justify-center bg-[#0b0b0b] text-white">
+                <h1>Logging in...</h1>
+            </main>
+        );
     }
 
     return (
@@ -25,7 +54,6 @@ const Login = () => {
 
             <div className="w-full max-w-md">
 
-                {/* Login Box */}
                 <div className="bg-[#151515] border border-white/10 rounded-2xl p-7 sm:p-9 shadow-2xl">
 
                     {/* Heading */}
@@ -39,7 +67,17 @@ const Login = () => {
                         </p>
                     </div>
 
-                    <form className="space-y-5" onSubmit={handleSubmit}>
+                    {/* ERROR MESSAGE */}
+                    {error && (
+                        <div className="mb-5 px-4 py-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+                            ❌ {error}
+                        </div>
+                    )}
+
+                    <form
+                        className="space-y-5"
+                        onSubmit={handleSubmit}
+                    >
 
                         {/* Email */}
                         <div>
@@ -51,7 +89,11 @@ const Login = () => {
                             </label>
 
                             <input
-                            onChange={(e) => {setEmail(e.target.value)}}
+                                value={email}
+                                onChange={(e) => {
+                                    setEmail(e.target.value);
+                                    setError("");
+                                }}
                                 type="email"
                                 id="email"
                                 placeholder="Enter your email"
@@ -79,8 +121,12 @@ const Login = () => {
 
                             <div className="relative">
                                 <input
-                                onChange={(e) => {setPassword(e.target.value)}}
-                                    type={showPassword ? 'text' : 'password'}
+                                    value={password}
+                                    onChange={(e) => {
+                                        setPassword(e.target.value);
+                                        setError("");
+                                    }}
+                                    type={showPassword ? "text" : "password"}
                                     id="password"
                                     placeholder="Enter your password"
                                     className="w-full px-4 py-3 pr-16 rounded-lg bg-[#0d0d0d] border border-white/10 text-white placeholder-gray-500 outline-none transition focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
@@ -88,10 +134,12 @@ const Login = () => {
 
                                 <button
                                     type="button"
-                                    onClick={() => setShowPassword(!showPassword)}
+                                    onClick={() =>
+                                        setShowPassword(!showPassword)
+                                    }
                                     className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-gray-500 hover:text-orange-500"
                                 >
-                                    {showPassword ? 'Hide' : 'Show'}
+                                    {showPassword ? "Hide" : "Show"}
                                 </button>
                             </div>
                         </div>
@@ -115,14 +163,15 @@ const Login = () => {
                         {/* Login Button */}
                         <button
                             type="submit"
-                            className="w-full py-3 rounded-lg bg-orange-500 hover:bg-orange-400 text-black font-semibold transition duration-200 active:scale-[0.98]"
+                            disabled={loading}
+                            className="w-full py-3 rounded-lg bg-orange-500 hover:bg-orange-400 text-black font-semibold transition duration-200 active:scale-[0.98] disabled:opacity-50"
                         >
-                            Login
+                            {loading ? "Logging in..." : "Login"}
                         </button>
 
                         {/* Register */}
                         <p className="text-center text-sm text-gray-400 pt-2">
-                            Don't have an account?{' '}
+                            Don't have an account?{" "}
                             <Link
                                 to="/register"
                                 className="text-orange-500 hover:text-orange-400 font-medium transition"
@@ -133,10 +182,9 @@ const Login = () => {
 
                     </form>
                 </div>
-
             </div>
         </main>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;
