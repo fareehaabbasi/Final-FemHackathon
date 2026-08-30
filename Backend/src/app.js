@@ -8,7 +8,7 @@ const cors = require('cors')
 const app = express();
 app.use(cookieParser())
 app.use(cors({
-  origin: "https://final-fem-hackathon.vercel.app",
+  origin: "https://final-fem-hackathon-txsk.vercel.app",
   credentials: true,
 }));
 
