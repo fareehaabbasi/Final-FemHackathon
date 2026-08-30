@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router";
 import Register from "./feature/auth/pages/Register";
 import Login from "./feature/auth/pages/Login";
-import Protected from "./feature/auth/components/protected";
+import Protected from "./feature/auth/components/Protected";
 import CustomerDashboard from "./feature/tickets/pages/CustomerDashboard";
 import CreateTicket from "./feature/tickets/pages/CreateTicket";
 import AgentDashboard from "./feature/tickets/pages/AgentDashboard";
