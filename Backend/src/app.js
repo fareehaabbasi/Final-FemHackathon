@@ -13,9 +13,19 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.json({
+    message: "SupportFlow API is running 🚀"
+  });
+});
+
+
 // using all the routes here
 app.use("/api/auth", authRoutes)
 app.use("/api/tickets", ticketRoutes)
+
+
 
 
 module.exports = app;
