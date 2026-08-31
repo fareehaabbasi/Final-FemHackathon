@@ -10,7 +10,6 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    const [role, setRole] = useState("customer");
     const [error, setError] = useState("");
 
     const handleSubmit = async (e) => {
@@ -27,7 +26,6 @@ const Register = () => {
                 username: username.trim(),
                 email: email.trim(),
                 password,
-                role,
             });
 
             navigate("/");
@@ -155,15 +153,6 @@ const Register = () => {
                             </div>
                         </div>
 
-                        {/* Role */}
-                        <div>
-                            <label
-                                htmlFor="role"
-                                className="block text-sm font-medium text-gray-300 mb-2"
-                            >
-                                Role
-                            </label>
-                        </div>
 
                         {/* Register Button */}
                         <button
