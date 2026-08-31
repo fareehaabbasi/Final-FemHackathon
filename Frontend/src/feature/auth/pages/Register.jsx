@@ -155,6 +155,16 @@ const Register = () => {
                             </div>
                         </div>
 
+                        {/* Role */}
+                        <div>
+                            <label
+                                htmlFor="role"
+                                className="block text-sm font-medium text-gray-300 mb-2"
+                            >
+                                Role
+                            </label>
+                        </div>
+
                         {/* Register Button */}
                         <button
                             type="submit"
