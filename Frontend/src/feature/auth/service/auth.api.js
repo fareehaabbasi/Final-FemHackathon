@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "https://final-fem-hackathon.vercel.app",
+    baseURL: "https://final-fem-hackathon.vercel.app/api/auth",
     withCredentials: true,
 });
 
