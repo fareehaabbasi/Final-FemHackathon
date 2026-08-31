@@ -10,6 +10,7 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [role, setRole] = useState("customer");
     const [error, setError] = useState("");
 
     const handleSubmit = async (e) => {
@@ -26,7 +27,7 @@ const Register = () => {
                 username: username.trim(),
                 email: email.trim(),
                 password,
-                role: "customer",
+                role,
             });
 
             navigate("/");
@@ -154,6 +155,30 @@ const Register = () => {
                             </div>
                         </div>
 
+                        {/* Role */}
+                        <div>
+                            <label
+                                htmlFor="role"
+                                className="block text-sm font-medium text-gray-300 mb-2"
+                            >
+                                Role
+                            </label>
+
+                            <select
+                                id="role"
+                                value={role}
+                                onChange={(e) => setRole(e.target.value)}
+                                className="w-full px-4 py-3 rounded-lg bg-[#0d0d0d] border border-white/10 text-white outline-none focus:border-orange-500"
+                            >
+                                <option value="customer">
+                                    Customer
+                                </option>
+
+                                <option value="agent">
+                                    Support Agent
+                                </option>
+                            </select>
+                        </div>
 
                         {/* Register Button */}
                         <button
