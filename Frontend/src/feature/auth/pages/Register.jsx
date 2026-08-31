@@ -26,6 +26,7 @@ const Register = () => {
                 username: username.trim(),
                 email: email.trim(),
                 password,
+                role: "customer",
             });
 
             navigate("/");
