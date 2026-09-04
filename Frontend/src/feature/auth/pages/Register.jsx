@@ -259,37 +259,6 @@ return (
                         </div>
 
 
-                        {/* Role */}
-                        <div>
-
-                            <label
-                                htmlFor="role"
-                                className="block text-sm font-medium text-gray-300 mb-2"
-                            >
-                                Join as
-                            </label>
-
-                            <select
-                                id="role"
-                                value={role}
-                                onChange={(e) =>
-                                    setRole(e.target.value)
-                                }
-                                className="w-full px-4 py-3 rounded-xl bg-[#0b0b0b] border border-white/10 text-white outline-none transition duration-200 focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10"
-                            >
-                                <option value="customer">
-                                    Customer
-                                </option>
-
-                                <option value="agent">
-                                    Support Agent
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
                         {/* Register Button */}
                         <button
                             type="submit"
