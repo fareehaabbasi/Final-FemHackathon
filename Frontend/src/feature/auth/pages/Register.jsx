@@ -3,6 +3,7 @@ import { useAuth } from "../hook/useAuth";
 import { Link, useNavigate } from "react-router";
 
 const Register = () => {
+    
 const { loading, handleRegister } = useAuth();
 const navigate = useNavigate();
 
