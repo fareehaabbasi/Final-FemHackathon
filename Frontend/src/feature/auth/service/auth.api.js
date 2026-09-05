@@ -36,4 +36,5 @@ export async function getMe() {
     const response = await api.get("/get-me");
 
     return response.data;
+    
 }
